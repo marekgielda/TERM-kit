@@ -1,5 +1,5 @@
 ---
-applyTo: "**/handlers/*.handler.ts"
+applyTo: "**/(handlers|query-handlers)/*.handler.ts"
 ---
 
 # Command and Query Handlers Instructions
@@ -26,6 +26,7 @@ import { Logger } from "@tshio/logger";
 import { Repository } from "typeorm";
 import { CREATE_USER_COMMAND_TYPE, CreateUserCommand } from "../commands/create-user.command";
 import { UserEntity } from "../models/user.entity";
+import { StatusCodes } from "http-status-codes";
 
 export interface CreateUserHandlerDependencies {
   logger: Logger;
@@ -45,7 +46,7 @@ export default class CreateUserHandler implements CommandHandler<CreateUserComma
     // Business logic and validation
     const existingUser = await this.dependencies.userRepository.findOneBy({ email });
     if (existingUser) {
-      throw new Error("User with this email already exists");
+      throw new HttpException("User with this email already exists", StatusCodes.BAD_REQUEST);
     }
 
     // Create and save entity
@@ -167,54 +168,6 @@ private async validateOrderCreation(payload: CreateOrderPayload) {
   if (!user) {
     throw new NotFoundError("User not found");
   }
-}
-```
-
-### Repository Operations
-Use TypeORM repository methods effectively:
-
-```typescript
-// Create operations
-const entity = this.dependencies.userRepository.create(payload);
-const savedEntity = await this.dependencies.userRepository.save(entity);
-
-// Update operations
-await this.dependencies.userRepository.update(
-  { id: command.payload.id },
-  { name: command.payload.name }
-);
-
-// Delete operations (soft delete preferred)
-await this.dependencies.userRepository.update(
-  { id: command.payload.id },
-  { deletedAt: new Date() }
-);
-
-// Find operations with relations
-const user = await this.dependencies.userRepository.findOne({
-  where: { id: payload.id },
-  relations: ['profile', 'orders']
-});
-```
-
-### Query Optimization
-Optimize database queries in query handlers:
-
-```typescript
-async execute(query: GetUserDetailsQuery) {
-  // Select only needed fields
-  const user = await this.dependencies.userRepository
-    .createQueryBuilder('user')
-    .select(['user.id', 'user.name', 'user.email'])
-    .leftJoinAndSelect('user.profile', 'profile')
-    .where('user.id = :id', { id: query.payload.id })
-    .getOne();
-
-  if (!user) {
-    throw new NotFoundError("User not found");
-  }
-
-  return { result: user };
 }
 ```
 

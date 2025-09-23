@@ -1,5 +1,5 @@
 ---
-applyTo: "**/+(*.entity.ts|*.repository.ts)"
+applyTo: "**/*.repository.ts"
 ---
 
 # Models and Entities Instructions
@@ -256,6 +256,67 @@ export default class CreateUserHandler implements CommandHandler<CreateUserComma
     return { result: savedUser };
   }
 }
+```
+
+## Repository Operations
+
+### Query Optimization
+Optimize database queries in query handlers:
+
+```typescript
+  // Select only needed fields
+  await this.userRepository
+    .createQueryBuilder('user')
+    .select(['user.id', 'user.name', 'user.email'])
+    .leftJoinAndSelect('user.profile', 'profile')
+    .where('user.id = :id', { id })
+    .getOne();
+}
+```
+
+### Advanced Repository Patterns
+
+#### Bulk Operations
+```typescript
+// Bulk insert
+await this.userRepository
+  .createQueryBuilder()
+  .insert()
+  .into(UserEntity)
+  .values(userArray)
+  .execute();
+
+// Bulk update
+await this.userRepository
+  .createQueryBuilder()
+  .update(UserEntity)
+  .set({ status: UserStatus.INACTIVE })
+  .where("lastLoginAt < :date", { date: inactiveDate })
+  .execute();
+```
+
+#### Complex Queries
+```typescript
+// Query with multiple conditions and joins
+const users = await this.userRepository
+  .createQueryBuilder('user')
+  .leftJoinAndSelect('user.orders', 'order')
+  .leftJoinAndSelect('order.items', 'item')
+  .where('user.status = :status', { status: UserStatus.ACTIVE })
+  .andWhere('order.createdAt > :date', { date: lastMonth })
+  .orderBy('user.createdAt', 'DESC')
+  .take(10)
+  .getMany();
+```
+
+#### Transactions
+```typescript
+// Using transactions for multi-table operations
+await this.userRepository.manager.transaction(async manager => {
+  const user = await manager.save(UserEntity, userData);
+  const profile = await manager.save(ProfileEntity, { ...profileData, userId: user.id });
+  await manager.save(AuditEntity, { action: 'USER_CREATED', userId: user.id });
+});
 ```
 
 ## Database Migrations

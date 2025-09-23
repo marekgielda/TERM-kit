@@ -1,5 +1,5 @@
 ---
-applyTo: "**/features/**/routing.ts"
+applyTo: "**/routing.ts"
 ---
 
 # Routing Instructions

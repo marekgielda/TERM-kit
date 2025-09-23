@@ -1,5 +1,5 @@
 ---
-applyTo: "**/tests/*.spec.ts"
+applyTo: "**/*.spec.ts"
 ---
 
 ## Test Structure and Organization

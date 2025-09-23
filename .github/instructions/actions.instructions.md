@@ -15,7 +15,6 @@ Actions are thin controllers responsible for handling HTTP requests, validating 
 ## Core Guidelines
 - Every action must have a corresponding integration test.
 - Always use `@tshio/command-bus` for command handlers and `@tshio/query-bus` for query handlers.
-- Use `GET` for queries, and `POST`, `PUT`, `DELETE` for commands.
 - Name action files descriptively (e.g., `create-user.action.ts`, `delete-user.action.ts`, `get-users.action.ts`).
 - Use appropriate HTTP status codes (e.g., 200 for success, 201 for created, 204 for no content, 400 for bad request, 404 for not found, 500 for server error).
 - Validate input using Celebrate/Joi before processing.

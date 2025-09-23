@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: "**/*.{ts,js}"
 ---
 
 # Security Guidelines for Express Boilerplate
