@@ -44,13 +44,6 @@ applyTo: "**"
 - **Feature Documentation**: Each feature should have clear purpose and usage documentation
 - **Error Documentation**: Document all custom error types and their usage
 
-## Error Handling Quality
-- **Global Error Handler**: All errors processed through `src/middleware/error-handler.ts`
-- **Structured Responses**: Consistent JSON error response format with message and code
-- **Error Types**: Use custom error classes (AppError, HttpError) for domain-specific errors
-- **Validation Errors**: Celebrate validation errors properly transformed to structured format
-- **Logging**: All errors logged using @tshio/logger with appropriate levels
-
 ## Health Monitoring
 - **Health Endpoint**: `/health` endpoint returns 200 OK when application is healthy
 - **Database Health**: Health checks should validate database connectivity

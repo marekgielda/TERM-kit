@@ -9,7 +9,7 @@ Actions are thin controllers responsible for handling HTTP requests, validating 
 
 **CRITICAL REQUIREMENTS**:
 - **ALL actions MUST have comprehensive integration tests** in `src/tests/` directory
-- Integration tests MUST cover success scenarios, validation errors, and edge cases
+- Integration tests MUST cover success scenarios, validation errors, and edge cases (see error-handling.instructions.md)
 - NO action should be merged without corresponding integration tests
 
 ## Core Guidelines
@@ -20,7 +20,6 @@ Actions are thin controllers responsible for handling HTTP requests, validating 
 - Use appropriate HTTP status codes (e.g., 200 for success, 201 for created, 204 for no content, 400 for bad request, 404 for not found, 500 for server error).
 - Validate input using Celebrate/Joi before processing.
 - Delegate business logic to handlers, not actions.
-- Throw errors directly; global error handler will catch and process them.
 - Add logging for important events and errors using injected logger.
 - Document the purpose of each action and expected input/output.
 
@@ -276,18 +275,6 @@ export default DeleteUserAction;
 
 ## Advanced Patterns
 
-### Error Handling in Actions
-Actions should throw errors directly and let the global error handler process them:
-
-```typescript
-import { NotFoundError } from "../../../../shared/errors/not-found.error";
-
-// Inside action method
-if (!user) {
-  throw new NotFoundError("User not found");
-}
-```
-
 ### Input Sanitization and Transformation
 Use Joi custom methods for input transformation:
 
@@ -450,7 +437,7 @@ Your tests MUST cover:
 - Keep actions minimal and focused on request/response logic.
 - Always validate input before processing.
 - Use dependency injection to resolve handlers.
-- Throw errors directly; rely on the global error handler.
+- Throw errors directly; rely on global error handling.
 - Use consistent response formats across all endpoints.
 - Follow RESTful conventions for HTTP methods and status codes.
 - Include comprehensive integration tests for every action.

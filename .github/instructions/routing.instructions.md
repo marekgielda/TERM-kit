@@ -6,7 +6,6 @@ applyTo: "**/features/**/routing.ts"
 
 ## Overview
 Routing in this application follows a hierarchical structure that separates concerns and enables modular development. The routing system consists of three main layers:
-
 1. **Feature Routing** (`src/app/features/{feature}/routing.ts`) - Individual feature endpoints
 2. **Global Routing** (`src/app/router.ts`) - Feature registration and global routes
 3. **Application Routing** (`src/app/app.ts`) - Application-wide middleware and configuration
@@ -14,7 +13,7 @@ Routing in this application follows a hierarchical structure that separates conc
 **CRITICAL REQUIREMENTS**:
 - All routes are automatically tested through REST API integration tests
 - Follow RESTful conventions for HTTP methods and paths
-- Use middleware for validation, authentication, and error handling
+- Use middleware for validation, authentication, and request processing
 - Maintain consistent route structure across features
 
 ## Routing Hierarchy
@@ -234,23 +233,6 @@ export const usersRouting = (actions: UsersRoutingDependencies) => {
 };
 ```
 
-### Error Handling
-Errors are automatically handled by the global error handler:
-
-```typescript
-// Actions throw errors, routing doesn't need to handle them
-router.get("/:id", [getUserActionValidation], actions.getUserAction.invoke.bind(actions.getUserAction));
-
-// In the action, errors are thrown and caught by global handler
-async invoke(req: Request, res: Response) {
-  const user = await this.dependencies.queryBus.execute(new GetUserQuery({ id: req.params.id }));
-  if (!user) {
-    throw new NotFoundError("User not found"); // Automatically returns 404
-  }
-  res.json(user);
-}
-```
-
 ## Advanced Routing Patterns
 
 ### Nested Resources
@@ -351,7 +333,6 @@ app.use("/graphql", graphQLMiddleware);
 - **Order matters**: Place authentication before authorization
 - **Validation first**: Validate input before processing
 - **Reusable middleware**: Create reusable middleware functions
-- **Error handling**: Let actions throw errors, middleware catches them
 
 ### Security Considerations
 - **Authentication**: Protect sensitive endpoints

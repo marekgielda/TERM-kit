@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.handler.ts"
+applyTo: "**/handlers/*.handler.ts"
 ---
 
 # Command and Query Handlers Instructions
@@ -71,7 +71,7 @@ export default class CreateUserHandler implements CommandHandler<CreateUserComma
 - Inject repositories, not data sources directly
 - Contain business logic and validation rules
 - Return result in `{ result: T }` format
-- Throw errors for business rule violations
+- Use global error handling for business rule violations and validation failures
 
 ## Query Handlers
 
@@ -140,42 +140,6 @@ export interface CreateUserHandlerDependencies {
   emailService?: EmailService;              // Optional services
 }
 ```
-
-## Error Handling
-
-### Built-in Error Classes
-Use error classes from `src/shared/errors` for consistent error handling:
-
-```typescript
-import { NotFoundError } from "../../../../shared/errors/not-found.error";
-import { HttpError } from "../../../../shared/errors/http.error";
-
-// In command handler
-async execute(command: UpdateUserCommand) {
-  const user = await this.dependencies.userRepository.findOneBy({ 
-    id: command.payload.id 
-  });
-  
-  if (!user) {
-    throw new NotFoundError("User not found");
-  }
-  
-  // Business logic validation
-  if (user.status === 'deleted') {
-    throw new HttpError("Cannot update deleted user", 400);
-  }
-  
-  // Continue with update logic...
-}
-```
-
-### Error Guidelines
-- Throw errors as exceptions, not return them as responses
-- Use `NotFoundError` for 404 errors
-- Use `HttpError` for custom HTTP errors with specific status codes
-- Never use `AppError` in handlers (reserved for internal errors)
-- Validation errors are handled by `celebrate` middleware
-- Create custom error classes extending `AppError` if needed
 
 ## Advanced Patterns
 

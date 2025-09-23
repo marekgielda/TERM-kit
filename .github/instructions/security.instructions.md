@@ -226,28 +226,6 @@ export class User {
 - Validate Content-Type headers
 - Log and monitor suspicious request patterns
 
-## Error Handling Security
-
-### Secure Error Responses
-The error handler in `src/middleware/error-handler.ts` implements secure error handling:
-- Never expose sensitive information in error messages
-- Use generic error messages for production environments
-- Log detailed errors server-side only
-- Implement different error responses for development vs. production
-
-### Error Response Format
-```typescript
-// Production error response
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Invalid input provided"
-  }
-}
-
-// Never expose stack traces or internal details in production
-```
-
 ## Container Security
 
 ### Docker Security
@@ -315,7 +293,6 @@ describe('Authentication Security', () => {
 - [ ] Authentication and authorization working correctly
 - [ ] Security headers configured properly
 - [ ] CORS configured for production origins
-- [ ] Error handling doesn't expose sensitive information
 - [ ] Database queries use parameterized statements
 - [ ] Passwords are properly hashed
 - [ ] API rate limiting implemented

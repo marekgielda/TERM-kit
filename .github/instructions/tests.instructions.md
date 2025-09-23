@@ -42,17 +42,12 @@ describe("Feature Name API", () => {
     });
 
     it("should return validation error for invalid input", async () => {
-      const invalidPayload = {
-        name: "", // Invalid empty name
-      };
+      const invalidPayload = { name: "" };
 
-      const response = await request(global.container.cradle.app)
+      await request(global.container.cradle.app)
         .post("/api/feature")
         .send(invalidPayload)
         .expect(400);
-
-      expect(response.body).to.have.property("error");
-      expect(response.body.error).to.contain("validation");
     });
   });
 
@@ -197,7 +192,7 @@ const clearDb = async (dataSource: DataSource) => {
 ### Test Coverage Requirements
 - **Integration tests**: Mandatory for all API endpoints
 - **Unit tests**: Mandatory for all utility functions and business logic
-- **Error scenarios**: Test both success and failure paths
+- **Error scenarios**: Test both success and failure paths (see error-handling.instructions.md)
 - **Edge cases**: Test boundary conditions and edge cases
 
 ### Test Data Management
@@ -252,37 +247,16 @@ describe("Protected Endpoints", () => {
 });
 ```
 
-### Error Handling Testing
-```typescript
-describe("Error Handling", () => {
-  it("should return 400 for validation errors", async () => {
-    const response = await request(global.container.cradle.app)
-      .post("/api/resource")
-      .send({ invalid: "data" })
-      .expect(400);
-
-    expect(response.body).to.have.property("error");
-    expect(response.body.error).to.include("validation");
-  });
-
-  it("should return 404 for non-existent resources", async () => {
-    await request(global.container.cradle.app)
-      .get("/api/resource/non-existent-id")
-      .expect(404);
-  });
-});
-```
 
 ## Test Quality Requirements
 
 ### Mandatory Test Scenarios
 - **CRUD operations**: Create, Read, Update, Delete for each entity
-- **Validation**: Test all input validation rules and error responses
+- **Validation**: Test all input validation (see error-handling.instructions.md)
 - **Authentication**: Test protected endpoints with and without valid tokens
 - **Authorization**: Test role-based access control where applicable
 - **Pagination**: Test list endpoints with pagination parameters
 - **Search and filtering**: Test query parameters and search functionality
-- **Error handling**: Test all error scenarios and status codes
 
 ### Test Naming Conventions
 - Use descriptive test names that explain the expected behavior

@@ -307,38 +307,7 @@ export class AddUserEntity1710240086737 implements MigrationInterface {
 }
 ```
 
-## Data Validation and Security
-
-### Input Validation
-Validate data at multiple levels:
-
-```typescript
-@Entity({ name: "user" })
-export class UserEntity {
-  public static create(data: Partial<UserProps>): UserEntity {
-    // Validate required fields
-    if (!data.email?.trim()) {
-      throw new Error("Email is required");
-    }
-    
-    if (!data.firstName?.trim() || !data.lastName?.trim()) {
-      throw new Error("First name and last name are required");
-    }
-    
-    // Sanitize input
-    const entity = new UserEntity();
-    entity.firstName = data.firstName.trim();
-    entity.lastName = data.lastName.trim();
-    entity.email = data.email.toLowerCase().trim();
-    
-    return entity;
-  }
-
-  @Column({ name: "email" })
-  @IsEmail() // Add validation decorators if using class-validator
-  email: string;
-}
-```
+## Data Security
 
 ### SQL Injection Prevention
 - **Use repository methods** instead of raw queries
