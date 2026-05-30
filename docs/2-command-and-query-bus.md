@@ -4,8 +4,6 @@ At TSH we separat state changing operations (Commands) and data retriving operat
 
 This means that in terms of REST API all **POST, PUT, PATCH, DELETE** requests are **Commands** and every **GET, HEAD** is **Query**.
 
-At th same, if we are thinking about GraphQL, then all **Mutations** are **Commands** and all **Queries** and **Query**.
-
 Command or Query **does not perform any operation itself it is just a simple DTO**.
 
 Example command:

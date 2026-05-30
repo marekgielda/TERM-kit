@@ -441,6 +441,3 @@ Your tests MUST cover:
 - Follow RESTful conventions for HTTP methods and status codes.
 - Include comprehensive integration tests for every action.
 - Use appropriate HTTP status codes from `http-status-codes` package.
-
-## GraphQL Actions
-If your project supports GraphQL, resolvers should follow similar principles: validate input, delegate to handlers, and format responses.

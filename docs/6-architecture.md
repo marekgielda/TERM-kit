@@ -10,21 +10,13 @@ Every application starts with a feature. Feature is a set of functionalities bou
 
 Features are located inside ```app/features```.
 
-### GraphQL vs REST
+### Actions/Endpoints
 
-This boilerplate supports both - GraphQL and REST.
+We are using Actions to define REST endpoints.
 
-Both are using Commands/Queries and handlers, however the place where we execute them is different.
+Actions are stored in ```actions``` directory inside coresponding feature.
 
-For REST we are using actions.
+### Action + Command/Query + Handler
 
-For GraphQL we are using resolvers.
-
-Actions are stored in ```actions` directory inside coresponding feature.
-
-Resolvers are stored in ```graphql/mutations``` and ```graphql/queries``` directories inside coresponding feature.
-
-### Action/Resolver + Command/Query + Handler
-
-We are not using controllers approach. Instead, each endpoint/query/mutation has its own action/resolver that executes specific Command/Query by Command Bus.
+We are not using controllers approach. Instead, each endpoint has its own action that executes specific Command/Query by Command Bus.
 

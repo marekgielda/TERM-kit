@@ -20,7 +20,6 @@ RUN chown -R root:root /app
 
 FROM $IMAGE
 COPY --chown=node:node --from=build /app/build /app/build
-COPY --chown=node:node --from=build /app/graphql /app/graphql
 COPY --chown=node:node --from=build /app/swagger /app/swagger
 COPY --chown=node:node --from=build /app/.env.dist /app/build/.env.dist
 COPY --chown=node:node --from=build /app/node_modules /app/node_modules

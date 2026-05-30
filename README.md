@@ -103,7 +103,7 @@ Before deployment, please ensure that a related SonarQube project has been creat
 
 ### Code generation
 
-We're using Plop for routes, models, actions, graphql (queries and mutations), commands and handlers generation.
+We're using Plop for routes, models, actions, commands and handlers generation.
 
 ```
 npm run plop
@@ -148,20 +148,6 @@ Database: app
 ```
 
 Of course, if any of this is changed via configuration or otherwise, then these changes must be reflected here as well.
-
-##
-
-### GraphQL
-Boilerplate has GraphQL support. Apollo server runs as a middleware and should be available locally under:
-```
-http://localhost:1337/graphql
-```
-
-To add new query/mutation run relevant `plop` commands and then:
-
-1. Modify `schema.gql` under `graphql/schema.gql`
-2. Run codegen: `npm run generate-schema`
-3. Restart watcher / API
 
 ##
 

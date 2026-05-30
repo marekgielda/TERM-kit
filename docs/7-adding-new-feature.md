@@ -16,18 +16,13 @@ submit
 
 This will create a set of directories for your feature.
 
-After that we need to decide if we're going with GraphQL or REST.
-
-The general idea is the same, but the plop command is different.
+After that we can add actions inside the feature using plop commands:
 
 ```
 npm run plop
 
 for POST/PATCH/PUT/DELETE endpoint select: action+command+handler
 for GET/HEAD endpoint select: action+query+handler
-
-for GraphQL Mutation select: graphql+command+handler
-for GraphQL Query select: graphql+query+handler
 
 follow instructions
 

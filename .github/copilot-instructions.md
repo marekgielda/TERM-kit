@@ -12,7 +12,6 @@ This repository is a boilerplate for building Node.js applications using TypeScr
 - **Event-driven architecture**: Utilizes an event dispatcher for handling domain events, enabling asynchronous processing and decoupling of components.
 - **Feature-based structure**: Organizes code into features, each encapsulating related functionality, making it easier to navigate and maintain.
 - **RESTful API**: Exposes a RESTful API for client interactions, following standard HTTP methods and status codes.
-- **GraphQL API**: Apollo Server integration for GraphQL queries and mutations alongside REST endpoints.
 
 ### Project Structure
 ```src/
@@ -26,7 +25,6 @@ This repository is a boilerplate for building Node.js applications using TypeScr
 │   │   │   ├── query-handlers/   # Query business logic
 │   │   │   ├── events/           # Domain events
 │   │   │   ├── subscribers/      # Event listeners
-│   │   │   ├── graphql/          # GraphQL resolvers
 │   │   │   ├── models/           # TypeORM entities
 │   │   │   └── routing.ts        # Route definitions
 │   ├── infrastructure/    # Infrastructure code (e.g., repositories implementations)
@@ -46,7 +44,6 @@ This repository is a boilerplate for building Node.js applications using TypeScr
 ### Key Libraries and Functionalities
 - **TypeScript**: For static typing and modern JavaScript features.
 - **Express**: Web framework for building REST APIs.
-- **Apollo Server**: GraphQL server implementation for building GraphQL APIs.
 - **TypeORM**: ORM for database interactions with PostgreSQL.
 - **Awilix**: Dependency injection container for managing dependencies.
 - **@tshio/command-bus**: Command bus for handling commands in CQRS pattern.
@@ -76,7 +73,6 @@ This repository is a boilerplate for building Node.js applications using TypeScr
 - **Test Coverage**: Use `npm run integration-tests-coverage` and `npm run services-units-coverage` for coverage reports
 - **Database Migrations**: Use `npm run generate-migration` to create new migrations
 - **Running Migrations**: Use `npm run run-migrations` to execute pending migrations
-- **GraphQL Schema**: Use `npm run generate-schema` to generate GraphQL type definitions
 - **Docker Management**: Use `npm run down` to stop all containers and volumes
 
 #### Development Workflow
@@ -120,7 +116,6 @@ This repository is a boilerplate for building Node.js applications using TypeScr
   - `.query.ts` for query DTOs
   - `.event.ts` for domain events
   - `.subscriber.ts` for event subscribers
-  - `.resolver.ts` for GraphQL resolvers
   - `.entity.ts` for TypeORM entities
   - `.repository.ts` for repository implementations
 - Use descriptive suffixes for class names (e.g., `UserService`, `OrderRepository`, `CreateUserHandler`)

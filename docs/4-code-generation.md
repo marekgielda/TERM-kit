@@ -12,10 +12,6 @@ As for now we support multiple generators:
 
 - action+query+handler - creates REST API action, coresponding query and query handler for it
 
-- graphql+query+handler - creates GraphQL query, coresponding query and query handler for it
-  
-- graphql+command+handler - creates GraphQL mutation, coresponding command and command handler for it
-
 - model - creates TypeORM model
   
 - feature - creates feature and all of its directories in features directory
@@ -33,10 +29,6 @@ As for now we support multiple generators:
 - query with handler - creates query and query handler 
 
 - event subscriber - creates event subscriber
-
-- graphql-query - creates GraphQL query
-
-- graphql-mutation - creates GraphQL mutation
 
 - crud rest api - creates REST API methods (create, update, delete, details, list) based on given feature & model name
 

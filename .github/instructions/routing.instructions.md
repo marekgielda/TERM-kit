@@ -316,9 +316,6 @@ app.get("/health", (req, res) => {
 
 // API documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-// GraphQL endpoint
-app.use("/graphql", graphQLMiddleware);
 ```
 
 ## Best Practices

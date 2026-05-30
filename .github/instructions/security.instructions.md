@@ -6,15 +6,15 @@ applyTo: "**/*.{ts,js}"
 
 ## Core Security Libraries
 - **Helmet**: Security headers middleware (already configured in `src/app/app.ts`)
-- **CORS**: Cross-origin resource sharing control (configured for GraphQL and REST)
+- **CORS**: Cross-origin resource sharing control (configured for REST)
 - **Celebrate/Joi**: Input validation and sanitization
 - **TypeORM**: Built-in SQL injection protection with parameterized queries
-- **Body-parser**: Request body parsing with size limits
+- **Express JSON middleware**: Request body parsing with appropriate size limits
 
 ## Authentication & Authorization
 
 ### JWT Implementation
-- Use JWT tokens for stateless authentication across REST and GraphQL endpoints
+- Use JWT tokens for stateless authentication across REST endpoints
 - Store JWT secret in environment variables (never in code)
 - Implement token expiration (access) and refresh token mechanisms
 - Extract user information from validated JWT tokens in middleware
@@ -138,7 +138,7 @@ app.use(
 ## CORS Configuration
 
 ### CORS Setup
-Configure CORS for both REST API and GraphQL endpoints:
+Configure CORS for REST API endpoints:
 ```typescript
 // Basic CORS for REST API
 app.use(cors({
@@ -146,9 +146,6 @@ app.use(cors({
   credentials: true,
   optionsSuccessStatus: 200,
 }));
-
-// GraphQL CORS
-app.use('/graphql', cors<cors.CorsRequest>());
 ```
 
 ### CORS Best Practices
@@ -222,7 +219,7 @@ export class User {
 - Implement API key scoping for different access levels
 
 ### Request Security
-- Implement request size limits using body-parser configuration
+- Implement request size limits using Express JSON/body parsing configuration
 - Validate Content-Type headers
 - Log and monitor suspicious request patterns
 

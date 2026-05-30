@@ -29,4 +29,4 @@ some-file-tests.ts // bad
 
 ### Tools
 
-Use plop to autogenerate API (endpoints, validations), GraphQL (mutations, queries) and architecture (Command, Queries, Features) related code.
+Use plop to autogenerate API (endpoints, validations) and architecture (Command, Queries, Features) related code.
